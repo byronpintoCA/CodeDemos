@@ -1,0 +1,140 @@
+﻿<Window x:Class="ByronStateDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm ="clr-namespace:ByronStateDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <vm:Selector x:Key="sel"/>
+
+        <DataTemplate x:Key="templateDrinkChoices" DataType="vm:DrinkChoices">
+            <Grid Margin="20" Background="Lavender">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <RadioButton Style="{StaticResource {x:Type ToggleButton}}" IsChecked="{Binding Path=IsCokeChecked, Mode=TwoWay}" Grid.Column="0" Margin="10">Coke</RadioButton>
+                <RadioButton Style="{StaticResource {x:Type ToggleButton}}" IsChecked="{Binding Path=IsPepseChecked, Mode=TwoWay}" Grid.Column="1" Margin="10">Pepsi</RadioButton>
+                <RadioButton Style="{StaticResource {x:Type ToggleButton}}" IsChecked="{Binding Path=IsMountainDewChecked, Mode=TwoWay}" Grid.Column="2" Margin="10">Mountain Dew</RadioButton>
+                <RadioButton Style="{StaticResource {x:Type ToggleButton}}" IsChecked="{Binding Path=IsGatoradeChecked, Mode=TwoWay}" Grid.Column="3" Margin="10">Gatorade</RadioButton>
+
+
+                <Label Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"  Grid.Column="0" >$0.75</Label>
+                <Label Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"  Grid.Column="1">$1.00</Label>
+                <Label Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"   Grid.Column="2">$1.25</Label>
+                <Label Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"  Grid.Column="3">$1.50</Label>
+
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="templateFlavor" DataType="vm:FlavorChoices">
+            <Grid Margin="20" >
+                <!-- Flavor-->
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition  />
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Style="{StaticResource {x:Type ToggleButton}}"   IsChecked="{Binding Path=IsStrawberryChecked, Mode=TwoWay}" Grid.Column="0" Margin="10">StrawBerry</CheckBox>
+                <CheckBox Style="{StaticResource {x:Type ToggleButton}}"  IsChecked="{Binding Path=IsOrangeChecked, Mode=TwoWay}" Grid.Column="1" Margin="10">Orange</CheckBox>
+                <CheckBox Style="{StaticResource {x:Type ToggleButton}}"  IsChecked="{Binding Path=IsVanillaChecked, Mode=TwoWay}" Grid.Column="2" Margin="10">Vanilla</CheckBox>
+                <CheckBox Style="{StaticResource {x:Type ToggleButton}}"  IsChecked="{Binding Path=IsCherryChecked, Mode=TwoWay}" Grid.Column="3" Margin="10">Cherry</CheckBox>
+
+
+                <Label Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"  Grid.Column="0" >$0.25</Label>
+                <Label Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"  Grid.Column="1">$0.25</Label>
+                <Label Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"   Grid.Column="2">$0.25</Label>
+                <Label Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"  Grid.Column="3">$0.25</Label>
+
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="templateFinal" DataType="vm:SalesTax">
+            <Grid Margin="20" Background="Peru">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition />
+
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center"  Grid.Column="0" >Sales Tax 8%</Label>
+                <Button Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  Grid.Column="1" >Pay</Button>
+
+            </Grid>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="20" Background="Lavender">
+            <ContentControl ContentTemplateSelector="{StaticResource  sel}" 
+             Content="{Binding CurrentState}"/>
+        </Grid>
+
+
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+
+            <Label Grid.Row="0" Content="Selection Cost : " HorizontalAlignment="Right" VerticalAlignment="Center"  />
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentState.SelectionTotal}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"  />
+
+
+            <Label Grid.Row="1" Content="Total Cost : " HorizontalAlignment="Right" VerticalAlignment="Center"  />
+
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CurrentState.Payment.TotalCost}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,10,0"  />
+
+        </Grid>
+
+
+        <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Command='{Binding MoveBackCommand}' IsEnabled="{Binding CurrentState.IsBackEnabled}" Margin="10">Back</Button>
+
+            <Button Grid.Column="1" Command='{Binding MoveNextCommand}' IsEnabled="{Binding CurrentState.IsNextEnabled}" Margin="10">Next</Button>
+
+            <Button Grid.Column="2" Command='{Binding MoveFinishCommand}' IsEnabled="{Binding CurrentState.IsFinishEnabled}" Margin="10">Finish</Button>
+
+        </Grid>
+
+    </Grid>
+</Window>
