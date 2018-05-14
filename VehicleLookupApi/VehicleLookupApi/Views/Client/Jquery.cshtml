@@ -1,0 +1,282 @@
+﻿@model Services.Vehicle
+
+@*<script src="~/Scripts/jquery-2.1.4.min.js"></script>*@
+<script src="~/Scripts/gijgo.min.js" type="text/javascript"></script>
+<link href="~/Content/gijgo.css" rel="stylesheet" type="text/css" />
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="panel-primary panel-info ">
+    <div class="panel-heading">
+
+        <div class="row">
+
+            <button style="margin-left :5px; margin-top:5px;" type="button" class="btn btn-success" onclick="refresh();">Refresh</button>
+
+            <select id="versionSelector" style="margin-top:15px; margin-left:5px;">
+                <option value="v1">Version One</option>
+                <option value="v2">Version Two</option>
+            </select>
+
+            <label style="margin-top:15px;"> To Use another version of API . Select version and then Refresh the browser (NOT the Refresh Button ->) </label>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div id="ReadSection">
+    <div class="row">
+        <div class="col-sm-6">
+            <div>
+                <table id="grid" style="margin:20px"></table>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+
+            <div class="container">
+                <div class="panel panel-default" style="margin-top:20px;">
+                    <div class="panel-heading"><label style="margin-top:5px;">Add Update Delete Testing</label></div>
+                    <div class="panel-body">
+
+
+                        <div id="UpdateAndDeleteSection">
+
+                            <form id="validateForm">
+                                <p></p>
+                                <div class="row">
+                                    <div class="col-sm-3"><label style="margin-top:5px;">Id:</label></div>
+                                    <div class="col-sm-8">
+                                        <input id="labelInsUpdDeleteId" name="labelInsUpdDeleteId" class="form-control" style="margin-top:5px;" placeholder="Search: Enter a number | Adding : Ignore"
+                                               data-rule-required="true" data-rule-number="true">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="labelInsUpdDeleteId" style="margin-top:5px;"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-sm-3"><label for="lblInsUpdDeleteManufacturer" style="margin-top:5px;">Manufacturer:</label></div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" style="margin-top:5px;" id="inputInsUpdDeleteManufacturer" name="inputInsUpdDeleteManufacturer"
+                                               data-rule-required="true">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="inputInsUpdDeleteManufacturer" style="margin-top:5px;"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3"><label for="lblInsUpdDeleteModel" style="margin-top:5px;">Model:</label></div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" style="margin-top:5px;" id="inputInsUpdDeleteModel" name="inputInsUpdDeleteModel"
+                                               data-rule-required="true">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="inputInsUpdDeleteModel" style="margin-top:5px;"></span>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-3"><label for="lblInsUpdDeleteYear" style="margin-top:5px;">Year:</label></div>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" style="margin-top:5px;" id="inputInsUpdDeleteYear" name="inputInsUpdDeleteYear"
+                                               data-rule-required="true" data-rule-number="true" data-rule-min="1900" data-rule-max="2050">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="inputInsUpdDeleteYear" style="margin-top:5px;"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label id="errorMessage" style="margin-top:5px;margin-left: 15px; color:red"></label>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <br />
+                        <br />
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-1" align="center"></div>
+                        <div class="col-sm-2" align="center"><button type="button" class="btn btn-primary" style="width:100px;" onclick="getData();">Get</button></div>
+                        <div class="col-sm-2" align="center"><button type="button" class="btn btn-success" style="width:100px;" onclick="addData();">Add</button></div>
+                        <div class="col-sm-2" align="center"><button type="button" class="btn btn-warning" style="width:100px" onclick="updateData();">Update</button></div>
+                        <div class="col-sm-2" align="center"><button type="button" class="btn btn-danger" style="width:100px" onclick="deleteData();">Delete</button></div>
+                        <div class="col-sm-2" align="center"><button type="button" class="btn btn-info" style="width:100px" onclick="clearData();">Clear</button></div>
+                        <div class="col-sm-1" align="center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var grid = {};
+    var validator = $('#validateForm').validate(
+        {
+            onfocusout: function (element) {
+                $(element).valid();
+            }
+        }
+    );
+    $(document).ready(function () {
+
+
+        var version = '/' + $('#versionSelector').val();
+
+        grid = $('#grid').grid({
+            dataSource: version + '/Vehicles',
+            columns: [
+                { field: 'Id', width: 50, sortable: true },
+                { field: 'Manufacturer', width: 100, sortable: true },
+                { field: 'Model', width: 100, sortable: true },
+                { field: 'Year', width: 50, sortable: true },
+            ],
+
+            pager: { limit: 20 },
+            total: 200,
+        });
+
+        grid.on('rowSelect', function (e, $row, id, record) {
+            fillFields(record);
+        });
+    });
+    function writeInfo(infoMessage) {
+        $('#errorMessage').text(infoMessage);
+    }
+    function fillFields(record) {
+        $('#labelInsUpdDeleteId').val(record.Id);
+        $('#inputInsUpdDeleteManufacturer').val(record.Manufacturer);
+        $('#inputInsUpdDeleteModel').val(record.Model);
+        $('#inputInsUpdDeleteYear').val(record.Year);
+        validator.resetForm();
+    }
+
+    function refresh() {
+        grid.reload();
+    }
+    function clearData() {
+        $('#labelInsUpdDeleteId').val('');
+        $('#inputInsUpdDeleteManufacturer').val('');
+        $('#inputInsUpdDeleteModel').val('');
+        $('#inputInsUpdDeleteYear').val('');
+        validator.resetForm();
+    }
+
+    function getData() {
+
+        var vehicle = new Object();
+        vehicle.id = $('#labelInsUpdDeleteId').val();
+
+        var version = '/' + $('#versionSelector').val();
+        writeInfo('');
+        $.ajax({
+
+            url: version + '/Vehicles/' + vehicle.id,
+            type: 'GET',
+
+            success: function (data, textStatus, xhr) {
+                fillFields(data);
+                writeInfo('Got record');
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                writeInfo(textStatus + ' : ' + errorThrown);
+            }
+        });
+    }
+
+    function addData() {
+
+        var vehicle = new Object();
+
+        vehicle.Manufacturer = $('#inputInsUpdDeleteManufacturer').val();
+        vehicle.Model = $('#inputInsUpdDeleteModel').val();
+        vehicle.Year = $('#inputInsUpdDeleteYear').val();
+
+        var version = '/' + $('#versionSelector').val();
+        writeInfo('');
+        $.ajax({
+
+            url: version + '/Vehicles',
+            type: 'POST',
+            dataType: 'json',
+            data: vehicle,
+
+            success: function (data, textStatus, xhr) {
+                fillFields(data);
+                writeInfo('Added record');
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                writeInfo(textStatus + ' : ' + errorThrown);
+            }
+
+        });
+
+    }
+
+
+    function deleteData() {
+
+        var vehicle = new Object();
+        vehicle.id = $('#labelInsUpdDeleteId').val();
+
+        var version = '/' + $('#versionSelector').val();
+        writeInfo('');
+        $.ajax({
+
+            url: version + '/Vehicles/' + vehicle.id,
+            type: 'DELETE',
+
+            success: function (data, textStatus, xhr) {
+                clearData();
+                writeInfo('Deleted record');
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                writeInfo(textStatus + ' : ' + errorThrown);
+            }
+
+        });
+    }
+
+    function updateData() {
+        var vehicle = new Object();
+        vehicle.Id = $('#labelInsUpdDeleteId').val();
+        vehicle.Manufacturer = $('#inputInsUpdDeleteManufacturer').val();
+        vehicle.Model = $('#inputInsUpdDeleteModel').val();
+        vehicle.Year = $('#inputInsUpdDeleteYear').val();
+
+        var version = '/' + $('#versionSelector').val();
+        writeInfo('');
+        $.ajax({
+
+            url: version + '/Vehicles',
+            type: 'PUT',
+            dataType: 'json',
+            data: vehicle,
+
+            success: function (data, textStatus, xhr) {
+                fillFields(data);
+                writeInfo('Updated record');
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                writeInfo(textStatus + ' : ' + errorThrown);
+            }
+
+        });
+    }
+
+</script>

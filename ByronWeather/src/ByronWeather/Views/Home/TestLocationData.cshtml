@@ -1,0 +1,103 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+@*@{ Html.RenderPartial("~/Views/Common/CitySearch.cshtml");  }
+
+<script>
+    var callback = function (data) {
+
+        console.log(data);
+
+    }
+
+    citySearchSelectedCallback = callback;
+
+</script>*@
+
+<script src="~/scripts/StorageAPI.js"></script>
+
+<div>
+
+    <label id="CookieData" style="color:black">adsfasdas</label>
+    <br />
+
+    <button onclick="readLocationData()"> Read Location Data  </button>
+
+    <br />
+
+    <input id="display" />
+    <input id="latitude" />
+    <input id="longitude" />
+    
+    <button onclick="saveLocationData()"> Save Location Data  </button>
+    <button onclick="removeLocation()"> Remove Location  </button>
+    <button onclick="clearLocations()"> Clear Locations  </button>
+
+</div>
+<script>
+
+    readLocationData();
+    
+    function saveLocationData()
+    {
+        var rootLocation;
+
+        var latitude = $("#latitude")[0].value;
+        var longitude = $("#longitude")[0].value;
+        var display = $("#display")[0].value;
+
+        LocationHelperAPI.saveALocation(display, latitude, longitude);
+
+    }
+
+    function readLocationData()
+    {
+        var data = LocationHelperAPI.getLocationData();
+
+        if (data) {
+
+            data = JSON.stringify(data);
+
+            $("#CookieData")[0].innerText=data;
+
+        }
+        else {
+            $("#CookieData")[0].innerText ="Not Set";
+        }
+
+
+        //var theVal = $("#SomeData")[0].value;
+        //daCookieMonster.setString(cookieName, theVal, 500);
+
+        //daCookieMonster.setJson(cookieJsonName, {
+        //    name :"adfd",
+        //    dong :"ing"
+        //}, 500);
+
+        //alert(document.cookie);
+
+    }
+
+    function removeLocation() {
+        var rootLocation;
+
+        var latitude = $("#latitude")[0].value;
+        var longitude = $("#longitude")[0].value;
+        var display = $("#display")[0].value;
+
+        LocationHelperAPI.removeLocation(display, latitude, longitude);
+
+    }
+
+    function clearLocations() {
+        
+        LocationHelperAPI.clearLocationData();
+
+    }
+
+</script>

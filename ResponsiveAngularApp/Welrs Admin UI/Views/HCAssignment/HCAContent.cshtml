@@ -1,0 +1,333 @@
+﻿@using System.Web.Optimization
+
+<!-- Add the style sheet for the Search box-->
+<link href="~/scriptsfontscss/css/jquery-ui.css" rel="stylesheet">
+
+<div class="row">
+    <div class="col-sm-2 DefaultPadLeftRight">
+        <div class="row">
+            <div id="MyTree" class="treefitScreen treeMargin">
+                @*ControlBorder*@
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-10 ZeroPadLeft" ng-app="hcaApp">
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog" ng-controller="hcaCartController as cartVM">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">View All Pending Changes</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div ng-repeat="item in cartVM.Items">
+
+                            <div class="row">
+                                &nbsp;&nbsp;
+                                MSH_ID = {{item.MSH_ID}} ;
+                                OBR_ID = {{item.OBR_ID}} ;
+                                OBX_ID = {{item.OBX_ID}} ;
+                                {{item.HealthCondition}}
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="ContentRightPanel" class="contentfitScreen" style="margin-left:15px;" ng-controller="hcaController as vm">
+
+            <div id="loadAnimation">
+                Loading Data
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="col-sm-4">
+
+                                <text id="TopMostElementRightPanel" class="BoldText BlackText"> MSH : </text>
+                                <text class="BoldText">{{ vm.data.MSH_ID }}</text>
+                            </div>
+                            <div class="col-sm-8">
+                                <text ng-if="vm.data.ShowCancel" class="BoldText BlackText">Health Condition : </text>
+                                <text class="SearchForeground BoldText"> {{ vm.data.HCAssignment }} </text>
+                                <span ng-if="vm.data.ShowCancel">
+                                    <i class="glyphicon glyphicon-remove SearchIcon" id="HCA-Remove_{{vm.data.NodeType}}_{{ vm.data.MSH_ID }}" onclick="RemoveHCAssignment(this);"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <input id="HCA-Search_{{vm.data.NodeType}}_{{ vm.data.MSH_ID }}" ElementType="1" type="search" class="inputBox SearchBoxSize" placeholder="Health code search..">
+                            <!-- <i class="glyphicon glyphicon-search BoldText BlackText"></i> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div id="MSH_{{ vm.data.MSH_ID }}" class="panel-collapse collapse in">
+
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <a class="PrimaryPanel" data-toggle="collapse" href="#HL7_Panel">
+                                View HL7 Data
+                            </a>
+                        </div>
+                        <div id="HL7_Panel" class="panel-body collapse out">
+                            <div class="col-sm-12">
+                                <textarea readonly class="HL7">{{ vm.data.HL7 }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row DefaultPadLeftRight DefaultMarginTopBottom">
+
+                        <div class="col-sm-4">
+                            <text class="BoldText BlackText"> Sender : </text>
+                            <text> {{ vm.data.Sender }} </text>
+                        </div>
+                        <div class="col-sm-4">
+                            <text class="BoldText BlackText"> Msg D/T : </text>
+                            <text> {{ vm.data.MessageDateTime }} </text>
+                        </div>
+                        <div class="col-sm-4">
+                            <text class="BoldText BlackText"> PID ID : </text>
+                            <text> {{ vm.data.PID_ID }} </text>
+                        </div>
+
+                    </div>
+                    <div class="row DefaultPadLeftRight DefaultMarginTopBottom">
+
+                        <div class="col-sm-4">
+                            <text class="BoldText BlackText">Name :</text>
+                            <text>{{ vm.data.LastName }} , {{ vm.data.FirstName }} ( {{ vm.data.DateOfBirth }} )</text>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <text class="BoldText BlackText">FileName : </text>
+                            <text>{{ vm.data.FileName }}</text>
+                        </div>
+                        <div class="col-sm-4">
+                            <text class="BoldText BlackText"> Msg CntrlID : </text>
+                            <text>{{ vm.data.MessageControlID }}</text>
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                    </div>
+
+                    <div ng-repeat="obr in vm.data.ObrList" class="row PanelContentOBR">
+                        <div class="panel panel-success">
+                            <div id="Scroll_OBR_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}" class="panel-heading">
+                                <div class="row">
+
+                                    <div class="col-sm-6">
+                                        <div class="col-sm-4">
+                                            <text class="OBRHeaderText BoldText"> OBR_ID : </text>
+                                            <text class="OBRHeaderText"> {{ obr.OBR_ID }}</text>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <text ng-if="obr.ShowCancel" class="BoldText BlackText">Health Condition : </text>
+                                            <text class="SearchForeground BoldText"> {{ obr.HCAssignment }} </text>
+                                            <span ng-if="obr.ShowCancel">
+                                                <i class="glyphicon glyphicon-remove SearchIcon" id="HCA-Remove_{{obr.NodeType}}_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}" onclick="RemoveHCAssignment(this);"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input id="HCA-Search_{{obr.NodeType}}_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}" ElementType="2" type="search" class="inputBox SearchBoxSize" placeholder="Health code search..">
+                                        <!-- <i class="glyphicon glyphicon-search BoldText BlackText"></i> -->
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="col-sm-2 col-sm-offset-8">
+                                            <text class="OBRHeaderText">{{ obr.SequenceID }}</text>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <a class="OBRHeaderText BoldText ObrPanel GlyphIconSize" data-toggle="collapse" href="#OBR_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}">
+                                                <span class="if-collapsed"><i class="glyphicon glyphicon-triangle-bottom"></i></span>
+                                                <span class="if-not-collapsed"><i class="glyphicon glyphicon-triangle-top"></i></span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="OBR_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}" class="panel-body collapse in">
+
+                                <div class="row">
+                                    <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> TestRequestIdentifier : </text>
+                                    <label class="NormalText">{{ obr.TestRequestIdentifier }}</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Request : </text>
+                                        </div>
+                                        <div class="row DefaultPadLeftRight">
+                                            <textarea readonly class="OBR">{{ obr.OrderedTest }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Specimen Source : </text>
+                                        </div>
+                                        <div class="row DefaultPadLeftRight">
+                                            <textarea readonly class="OBR NormalBlackText">{{ obr.SpecimenSourceSite }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Parent Result : </text>
+                                        </div>
+                                        <div class="row DefaultPadLeftRight">
+                                            <textarea readonly class="OBR">{{ obr.ParentResult }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Reasons for Study : </text>
+                                        </div>
+                                        <div class="row DefaultPadLeftRight">
+                                            <textarea readonly class="OBR">{{ obr.ReasonsForStudy }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6 DefaultPadBottom">
+                                        <div class="row">
+                                            <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Relevant Clinic Info : </text>
+                                        </div>
+                                        <div class="row DefaultPadLeftRight">
+                                            <textarea readonly class="OBR">{{ obr.RelevantClinicInfo }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 DefaultPadBottom">
+                                        <div class="row">
+                                            <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> OBR Notes : </text>
+                                        </div>
+                                        <div class="row DefaultPadLeftRight">
+                                            <textarea readonly class="OBR">{{ obr.Notes }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-danger" ng-repeat="obx in obr.ObxList">
+                                    <div id="Scroll_OBX_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}" class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="col-sm-4">
+                                                    <text class="OBXHeaderText BoldText"> OBX_ID : </text>
+                                                    <text class="OBXHeaderText">{{ obx.OBX_ID }}</text>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <text ng-if="obx.ShowCancel" class="BoldText BlackText">Health Condition : </text>
+                                                    <text class="SearchForeground BoldText"> {{ obx.HCAssignment }} </text>
+                                                    <span ng-if="obx.ShowCancel">
+                                                        <i class="glyphicon glyphicon-remove SearchIcon" id="HCA-Remove_{{obx.NodeType}}_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}" onclick="RemoveHCAssignment(this);"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input id="HCA-Search_{{obx.NodeType}}_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}" ElementType="3" type="search" class="inputBox SearchBoxSize" placeholder="Health code search..">
+                                                <!-- <i class="glyphicon glyphicon-search BoldText BlackText"></i> -->
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="col-sm-2 col-sm-offset-8">
+                                                    <text class="OBXHeaderText">{{ obx.SequenceID }}</text>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <a class="OBXHeaderText BoldText ObrPanel GlyphIconSize" data-toggle="collapse" href="#OBX_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}">
+                                                        <span class="if-collapsed"><i class="glyphicon glyphicon-triangle-bottom"></i></span>
+                                                        <span class="if-not-collapsed"><i class="glyphicon glyphicon-triangle-top"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="OBX_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}" class="panel-body collapse in">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="row">
+                                                    <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result Test : </text>
+                                                </div>
+                                                <div class="row DefaultPadLeftRight">
+                                                    <textarea readonly class="OBX">{{ obx.ResultTest }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="row">
+                                                    <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result : </text>
+                                                </div>
+                                                <div class="row DefaultPadLeftRight">
+                                                    <textarea readonly class="OBX">{{ obx.Result }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="row">
+                                                    <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result Units : </text>
+                                                </div>
+                                                <div class="row DefaultPadLeftRight">
+                                                    <textarea readonly class="OBX">{{ obx.ResultUnits }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="row">
+                                                    <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result Method : </text>
+                                                </div>
+                                                <div class="row DefaultPadLeftRight">
+                                                    <textarea readonly class="OBX">{{ obx.TestMethods }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-6">
+                                                <div class="row">
+                                                    <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> OBX Notes : </text>
+                                                </div>
+                                                <div class="row DefaultPadLeftRight">
+                                                    <textarea readonly class="OBX">{{ obx.TestResultNotes }}</textarea>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Required Javascript -->
+
+@Scripts.Render("~/HCAssignmentDependencies")
+
+<script src="~/ScriptsFontsCSS/js/HCAssignment-angular.js"></script>
+<script src="~/ScriptsFontsCSS/js/HCAssignment.js"></script>
+

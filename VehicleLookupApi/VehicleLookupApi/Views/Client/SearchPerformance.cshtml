@@ -1,0 +1,117 @@
+﻿In Progress ..
+
+<div id="Testing">
+    <div class="row">
+
+        <div id="1stCol" class="col-sm-4">
+            <label> Entity Framework Performance : Vehicle Model :</label>
+            <input id="1stInput" value="c" class="form-control" placeholder="Test search Data" width="50" />
+            <br />
+
+            <button type="button" class="btn btn-primary" style="width:100px;" onclick="firstGet();">Get</button>
+            <button type="button" class="btn btn-warning" style="width:100px;" onclick="firstClear();">Clear</button>
+            <div class="row">
+                <div id="1stCol" class="col-sm-6">
+                    <ol id="firstList"></ol>
+                </div>
+                <div id="1stColResults" class="col-sm-6">
+                    <label>Results</label>
+                    <ul id="firstListResults"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="2ndCol" class="col-sm-4">
+            <label> In Memory Btree Search : Vehicle Model :</label>
+            <input id="2ndInput" value="c" class="form-control" placeholder="Test search Data" />
+            <br />
+
+            <button type="button" class="btn btn-success" style="width:100px;" onclick="secondGet();">Get</button>
+            <button type="button" class="btn btn-warning" style="width:100px;" onclick="secondClear();">Clear</button>
+            
+            <div class="row">
+                <div id="1stCol" class="col-sm-6">
+                    <ol id="secondList"></ol>
+                </div>
+                <div id="1stColResults" class="col-sm-6">
+                    <label>Results</label>
+                    <ul id="secondListResults"></ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function makeCall(daUrl, callback) {
+        var ajaxTime = new Date().getTime();
+        $.ajax({
+            url: daUrl,
+            type: 'GET',
+            success: function (data, textStatus, xhr) {
+                var totalTime = new Date().getTime() - ajaxTime;
+                if (callback !== null) {
+                    callback(data, totalTime);
+                }
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Failed');
+            }
+        });
+    }
+
+    function clearList(listControl) {
+        var control = $(listControl);
+        control.html('');
+    }
+    function firstClear()
+    {
+        clearList('#firstList');
+        clearList('#firstListResults');
+    }
+    function secondClear() {
+        clearList('#secondList');
+        clearList('#secondListResults');
+    }
+
+    function ProcessResults(listControl, results) {
+        var control = $(listControl);
+        control.html('');
+        $.each(results, function (i, item) {
+            control.append($("<li>").text(item));
+        });
+    }
+
+    function firstGet() {
+        var daUrl = "/v1/Vehicles/Search?searchCriteria=" + $('#1stInput').val();
+
+        makeCall(daUrl, function (data, ret) {
+            //alert(ret);
+            $("#firstList").append($("<li>").text(ret + " ms , resultCount :" + data.total));
+
+            ProcessResults('#firstListResults', data.results);
+
+        });
+    }
+
+    function secondGet() {
+        var daUrl = "/Client/Search?searchCriteria=" + $('#2ndInput').val();
+
+        makeCall(daUrl, function (data,ret) {
+            //alert(ret);
+            $("#secondList").append($("<li>").text(ret + " ms , resultCount :" + data.total));
+            ProcessResults('#secondListResults', data.results);
+        });
+
+    }
+
+    // Initialize .. If sleeping
+    //firstGet();
+    //secondGet();
+    //thirdGet();
+
+</script>

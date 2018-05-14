@@ -1,0 +1,312 @@
+﻿
+<!--This file was used to prototype the UI ( in vsCode) and should not be included-->
+
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- Required Stylesheets -->
+    <link href="../../ScriptsFontsCSS/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../ScriptsFontsCSS/css/Site.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="Content" class="PageContainer">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="col-sm-4">
+
+                            <text class="BoldText BlackText"> MSH : </text>
+                            <text class="BoldText">1</text>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <text class="BoldText BlackText"> Name : </text>
+                            <text class="BoldText"> Smith , Mary ( 03/23/1960 ) </text>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <text class="BoldText BlackText">Health Condition : </text>
+                        <text class="SearchForeground BoldText"> Chlamedia </text>
+                        <i class="glyphicon glyphicon-remove SearchIcon"></i>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="search" class="inputBox SearchBoxSize" placeholder="Search criteria">
+                        <!-- <i class="glyphicon glyphicon-search BoldText BlackText"></i> -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="MSH" class="panel-collapse collapse in">
+
+                <div class="row DefaultPadLeftRight DefaultMarginTopBottom">
+
+                    <div class="col-sm-4">
+                        <text class="BoldText BlackText"> Sender : </text>
+                        <text> Group Health Co-operative </text>
+                    </div>
+                    <div class="col-sm-4">
+                        <text class="BoldText BlackText"> Msg D/T : </text>
+                        <text> 09/20/2017 10:30:00 PM </text>
+                    </div>
+                    <div class="col-sm-4">
+                        <text class="BoldText BlackText"> PID ID : </text>
+                        <text> 1223 </text>
+                    </div>
+
+                </div>
+                <div class="row DefaultPadLeftRight DefaultMarginTopBottom">
+
+
+                    <div class="col-sm-4">
+                        <text class="BoldText BlackText">FileName : </text>
+                        <text>GHC_2012-2-12.txt </text>
+                    </div>
+                    <div class="col-sm-4">
+                        <text class="BoldText BlackText"> Msg CntrlID : </text>
+                        <text>123456ABCDE</text>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+
+                <div class="row PanelContentOBR">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <div class="col-sm-4">
+                                        <text class="OBRHeaderText BoldText"> OBR_ID : </text>
+                                        <text class="OBRHeaderText"> 123</text>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <text class="BoldText BlackText">Health Condition : </text>
+                                        <text class="SearchForeground BoldText"> Chlamedia </text>
+                                        <i class="glyphicon glyphicon-remove SearchIcon"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="search" class="inputBox SearchBoxSize" placeholder="Search criteria">
+                                    <!-- <i class="glyphicon glyphicon-search BoldText BlackText"></i> -->
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="col-sm-2 col-sm-offset-8">
+                                        <text class="OBRHeaderText">1</text>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a class="OBRHeaderText BoldText ObrPanel GlyphIconSize" data-toggle="collapse" href="#OBR_1">
+                                                    <span class="if-collapsed"><i class="glyphicon glyphicon-triangle-bottom"></i></span>
+                                                    <span class="if-not-collapsed"><i class="glyphicon glyphicon-triangle-top"></i></span>
+                                                </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="OBR_1" class="panel-body collapse in">
+
+                            <div class="row">
+                                <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> TestRequestIdentifier : </text>
+                                <label class="OBRHeaderText NormalText">ABC123</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Request : </text>
+                                    </div>
+                                    <div class="row DefaultPadLeftRight">
+                                        <textarea readonly class="OBR">blah</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Specimen Source : </text>
+                                    </div>
+                                    <div class="row DefaultPadLeftRight">
+                                        <textarea readonly class="OBR">blah</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Parent Result : </text>
+                                    </div>
+                                    <div class="row DefaultPadLeftRight">
+                                        <textarea readonly class="OBR">blah</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Reasons for Study : </text>
+                                    </div>
+                                    <div class="row DefaultPadLeftRight">
+                                        <textarea readonly class="OBR">blah</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 DefaultPadBottom">
+                                    <div class="row">
+                                        <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Relevant Clinic Info : </text>
+                                    </div>
+                                    <div class="row DefaultPadLeftRight">
+                                        <textarea readonly class="OBR">blah</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 DefaultPadBottom">
+                                    <div class="row">
+                                        <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> OBR Notes : </text>
+                                    </div>
+                                    <div class="row DefaultPadLeftRight">
+                                        <textarea readonly class="OBR">blah</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="col-sm-4">
+                                                <text class="OBXHeaderText BoldText"> OBR_ID : </text>
+                                                <text class="OBXHeaderText"> 123</text>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <text class="BoldText BlackText">Health Condition : </text>
+                                                <text class="SearchForeground BoldText"> Chlamedia </text>
+                                                <i class="glyphicon glyphicon-remove SearchIcon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="search" class="inputBox SearchBoxSize" placeholder="Search criteria">
+                                            <!-- <i class="glyphicon glyphicon-search BoldText BlackText"></i> -->
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col-sm-2 col-sm-offset-8">
+                                                <text class="OBXHeaderText">1</text>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <a class="OBXHeaderText BoldText ObrPanel GlyphIconSize" data-toggle="collapse" href="#OBX_1">
+                                                            <span class="if-collapsed"><i class="glyphicon glyphicon-triangle-bottom"></i></span>
+                                                            <span class="if-not-collapsed"><i class="glyphicon glyphicon-triangle-top"></i></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="OBX_1" class="panel-body collapse in">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result Test : </text>
+                                            </div>
+                                            <div class="row DefaultPadLeftRight">
+                                                <textarea readonly class="OBX">blah</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result : </text>
+                                            </div>
+                                            <div class="row DefaultPadLeftRight">
+                                                <textarea readonly class="OBX">blah</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result Units : </text>
+                                            </div>
+                                            <div class="row DefaultPadLeftRight">
+                                                <textarea readonly class="OBX">blah</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result Method : </text>
+                                            </div>
+                                            <div class="row DefaultPadLeftRight">
+                                                <textarea readonly class="OBX">blah</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-6">
+                                            <div class="row">
+                                                <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> OBX Notes : </text>
+                                            </div>
+                                            <div class="row DefaultPadLeftRight">
+                                                <textarea readonly class="OBX">blah</textarea>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Required Javascript -->
+    <script src="../../ScriptsFontsCSS/js/jquery.min.js"></script>
+    <script src="../../ScriptsFontsCSS/js/bootstrap.min.js"></script>
+    <script src="../../ScriptsFontsCSS/js/angular.min.js"></script>
+    <script src="../../ScriptsFontsCSS/js/HCAssignment-angular.js"></script>
+
+    <script type="text/javascript">
+    $(function () {
+
+        SetFormMode(0);
+    });
+
+    var _viewTarget;
+    function SetFormMode(mode) {
+
+        if (_viewTarget != null) {
+
+            _viewTarget.removeClass('collapse in');
+            _viewTarget.addClass('collapse out');
+        }
+
+        switch (mode) {
+            case 1:
+                _viewTarget = $('#Selection_One');
+                break;
+            case 2:
+                _viewTarget = $('#Selection_Two');
+                break;
+            case 3:
+                _viewTarget = $('#Selection_Three');
+                break;
+            default:
+                _viewTarget = $('#Selection_None');
+        }
+
+        _viewTarget.removeClass('collapse out');
+        _viewTarget.addClass('collapse in');
+
+    }
+    </script>
+
+</body>
+
+
+
+
+</html>

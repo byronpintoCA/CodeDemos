@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResponsiveAngularApp", "Welrs Admin UI\ResponsiveAngularApp.csproj", "{84E36B5F-E6BB-45E9-B7BE-FA70E92CAE81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResponsiveAngularApp.Tests", "Welrs Admin UI.Tests\ResponsiveAngularApp.Tests.csproj", "{503918BB-226B-4F29-9CBA-6931F850C88A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84E36B5F-E6BB-45E9-B7BE-FA70E92CAE81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84E36B5F-E6BB-45E9-B7BE-FA70E92CAE81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84E36B5F-E6BB-45E9-B7BE-FA70E92CAE81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84E36B5F-E6BB-45E9-B7BE-FA70E92CAE81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{503918BB-226B-4F29-9CBA-6931F850C88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{503918BB-226B-4F29-9CBA-6931F850C88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{503918BB-226B-4F29-9CBA-6931F850C88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{503918BB-226B-4F29-9CBA-6931F850C88A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF55B312-FBB3-4AE1-8F27-0320F7A584B0}
+	EndGlobalSection
+EndGlobal

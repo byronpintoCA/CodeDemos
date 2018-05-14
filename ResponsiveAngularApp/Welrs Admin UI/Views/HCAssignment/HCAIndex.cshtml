@@ -1,0 +1,440 @@
+﻿@using System.Web.Optimization
+@{
+    ViewBag.Title = "Health Code Assignment";
+    Layout = "~/Views/_MainLayout.cshtml";
+}
+
+@* Separate out the Razor stuff and the pure front end stuff .. *@
+
+<!-- Add the style sheet for the Search box-->
+<link href="~/scriptsfontscss/css/jquery-ui.css" rel="stylesheet">
+
+@Html.AntiForgeryToken()
+
+<div id="NoDataSection">
+    <h4>
+        <text id="NoDataText"></text>
+    </h4>
+</div>
+
+<div class="row" id="QueueContentSection">
+    <div class="col-sm-2 DefaultPadLeftRight">
+        <div class="row">
+            <div id="MyTree" class="treefitScreen treeMargin">
+                @*ControlBorder*@
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-10 ZeroPadLeft" ng-app="hcaApp">
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog" ng-controller="hcaCartController as cartVM">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">ALL Pending Changes</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div ng-repeat="item in cartVM.Items">
+
+                            <div class="row">
+                                &nbsp;&nbsp;
+                                MSH_ID = {{item.MSH_ID}} ;
+                                OBR_ID = {{item.OBR_ID}} ;
+                                OBX_ID = {{item.OBX_ID}} ;
+                                Condition = {{item.HealthCondition.ChildName}}
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="ContentRightPanel" class="" style="margin-left:15px;" ng-controller="hcaController as vm">
+
+            <div id="loadAnimation">
+                Loading Data
+            </div>
+
+            <div class="panel PanelMSHBorder ZeroMarginTopBottom">
+
+                <div class="panel-heading ZeroPadding DefaultPaddingLeftRight">
+
+                    <div class="row MSHControlMarginRight">
+                        <div class="col-sm-3 ZeroMarginTopBottom ">
+                            <input id="HCA-Search_{{vm.data.NodeType}}_{{ vm.data.MSH_ID }}" ElementType="1" type="search" class="HCSearchBox SearchBoxMSHMarginTop SearchBoxMSH" placeholder="Assign at MSH level..">
+                        </div>
+                        @*<div class="col-sm-4">
+                                <text ng-if="vm.data.ShowCancel" class="BoldText BlackText">Health Condition : </text>
+                                <text class=""> {{ vm.data.HCAssignment.ChildName }} </text>
+                                <span ng-if="vm.data.ShowCancel">
+                                    <i class="glyphicon glyphicon-remove SearchIcon" id="HCA-Remove_{{vm.data.NodeType}}_{{ vm.data.MSH_ID }}" onclick="RemoveHCAssignment(this);"></i>
+                                </span>
+                            </div>*@
+
+                        <div class="col-sm-3 ZeroPadLeftRight ControlMarginTop ">
+                            <div class="col-sm-6 ZeroPadLeftRight text-center">
+                                <button id="DaHl7Button" class="btn btn-success DefaultButtonWidth" data-toggle="collapse" href="#HL7_Panel">
+                                    <i class="glyphicon glyphicon-th-list"></i>&nbsp;HL7
+                                </button>
+                            </div>
+
+                            <div class="col-sm-6 ZeroPadLeftRight text-center">
+                                <button id="DaNotesButton" class="btn btn-default DefaultButtonWidth" data-toggle="collapse" href="#Notes_Panel">
+                                    <i class="glyphicon glyphicon-list-alt"></i>&nbsp;Notes
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-6 ZeroPadLeftRight ControlMarginTop ">
+
+
+                            <div class="col-sm-4 ZeroPadLeft text-center">
+                                <button class="btn btn-info DefaultButtonWidth" ng-if="vm.data.AllChanges" data-toggle="modal" data-target="#MSHModal">
+                                    <i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;{{ vm.data.AllChanges.length }}
+                                </button>
+                            </div>
+                            <div class="col-sm-4 ZeroPadLeft text-center">
+                                <button class="btn btn-danger DefaultButtonWidth" ng-if="vm.data.AllChanges" id="HCA-Remove_{{vm.data.NodeType}}_{{ vm.data.MSH_ID }}" onclick="RemoveAllHC();">
+                                    <i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel
+                                </button>
+                            </div>
+                            <div class="col-sm-4 ZeroPadLeft text-center">
+                                <button class="btn btn-primary DefaultButtonWidth" ng-if="vm.data.AllChanges" id="HCA-Save_{{vm.data.NodeType}}_{{ vm.data.MSH_ID }}" onclick="Save(this);">
+                                    <i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Save
+                                </button>
+                            </div>
+
+                            <div id="MSHModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">MSH Specific Pending Changes</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div ng-repeat="item in vm.data.AllChanges">
+
+                                                <div class="row">
+                                                    &nbsp;&nbsp;
+                                                    MSH_ID = {{item.MSH_ID}} ;
+                                                    OBR_ID = {{item.OBR_ID}} ;
+                                                    OBX_ID = {{item.OBX_ID}} ;
+                                                    Condition = {{item.HealthCondition.ChildName}}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div id="MSH_{{ vm.data.MSH_ID }}" class="panel-collapse collapse in DefaultTopAndBottom">
+
+                <div class="panel dummy ZeroMarginTopBottom">
+                    <div id="HL7_Panel" class="panel-body collapse out ZeroPadLeftRight">
+                        <div class="col-sm-12 DefaultPaddingLeftRight">
+                            <textarea readonly class="HL7">{{ vm.data.HL7 }}</textarea>
+                        </div>
+                    </div>
+                    <div id="Notes_Panel" class="panel-body collapse out ZeroPadLeftRight">
+                        <div class="col-sm-12 DefaultPaddingLeftRight">
+                            <div class="row NotesMarginLeftRight">
+                                <text class="BoldText BlackText"> Notes : </text>
+                            </div>
+                            <div class="row NotesMarginLeftRight">
+                                <textarea class="Notes" placeholder="Enter Notes here..." ng-model="vm.data.Note"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="row DefaultPadLeftRight MSHMarginLeftRight">
+
+                    <div class="col-sm-2 BlackBorderTopLeftRight">
+                        <text class="BoldText BlackText">MSH </text>
+                    </div>
+                    <div class="col-sm-10 BlackBorderTopRight">
+                        <text>{{ vm.data.MSH_ID }} &nbsp; &nbsp;</text>
+                    </div>
+                </div>
+
+
+                <div class="row DefaultPadLeftRight MSHMarginLeftRight">
+
+                    <div class="col-sm-2 BlackBorderTopLeftRight">
+                        <text class="BoldText BlackText"> Sender </text>
+                    </div>
+                    <div class="col-sm-4 BlackBorderTopRight">
+                        <text> {{ vm.data.Sender }} </text>
+                    </div>
+                    <div class="col-sm-2 BlackBorderTopRight">
+                        <text class="BoldText BlackText"> Msg DateTime </text>
+                    </div>
+
+                    <div class="col-sm-4 BlackBorderTopRight">
+                        <text> {{ vm.data.MessageDateTime }} </text>
+                    </div>
+
+                </div>
+
+                <div class="row DefaultPadLeftRight MSHMarginLeftRight">
+
+                    <div class="col-sm-2 BlackBorderTopLeftRight">
+                        <text class="BoldText BlackText">Name</text>
+                    </div>
+                    <div class="col-sm-4 BlackBorderTopRight">
+                        <text>{{ vm.data.LastName }} , {{ vm.data.FirstName }} </text>
+                    </div>
+                    <div class="col-sm-2 BlackBorderTopRight">
+                        <text class="BoldText BlackText"> DOB </text>
+                    </div>
+
+                    <div class="col-sm-4 BlackBorderTopRight">
+                        <text> {{ vm.data.DateOfBirth }}  </text>
+                    </div>
+
+                </div>
+
+                <div class="row DefaultPadLeftRight MSHMarginLeftRight">
+
+                    <div class="col-sm-2 BlackBorderTopLeftRight">
+                        <text class="BoldText BlackText">Msg Cntrl ID</text>
+                    </div>
+                    <div class="col-sm-10 BlackBorderTopRight">
+                        <text>{{ vm.data.MessageControlID }} </text>
+                    </div>
+                </div>
+
+                <div class="row DefaultPadLeftRight MSHMarginLeftRight">
+
+                    <div class="col-sm-2 BlackBorderTopLeftRightBottom">
+                        <text class="BoldText BlackText">FileName </text>
+                    </div>
+                    <div class="col-sm-10 BlackBorderTopRightBottom">
+                        <text>{{ vm.data.FileName }}</text>
+                    </div>
+                </div>
+
+                <div id="ObrAndObxesSection" class="contentfitScreen">
+                    <div ng-repeat="obr in vm.data.ObrList" class="row PanelContentOBR">
+                        <div class="panel PanelOBRBorder">
+                            <div id="Scroll_OBR_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}" class="panel-heading">
+                                <div class="row">
+
+                                    <div class="col-sm-2 DefaultPadLeftRight">
+
+                                        <text class="OBRHeaderText BoldText"> OBR {{ obr.SequenceID }}  of {{ vm.data.ObrList.length }} &nbsp;  &nbsp;</text>
+                                        <a class="OBRHeaderText BoldText ObrPanel GlyphIconSize" data-toggle="collapse" href="#OBR_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}">
+                                            <span class="if-collapsed"><i class="glyphicon glyphicon-triangle-bottom"></i></span>
+                                            <span class="if-not-collapsed"><i class="glyphicon glyphicon-triangle-top"></i></span>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input id="HCA-Search_{{obr.NodeType}}_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}" ElementType="2" type="search" class="HCSearchBox  SearchBoxOBR" placeholder="Assign at OBR level.">
+                                        <!-- <i class="glyphicon glyphicon-search BoldText BlackText"></i> -->
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <text ng-if="obr.ShowCancel" class="BoldText BlackText">Health Condition : </text>
+                                        <text class=""> {{ obr.HCAssignment.ChildName }} </text>
+                                        <span ng-if="obr.ShowCancel">
+                                            <i class="glyphicon glyphicon-remove SearchIcon" id="HCA-Remove_{{obr.NodeType}}_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}" onclick="RemoveHCAssignment(this);"></i>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-sm-4">
+
+                                        <div class="col-sm-6 ZeroPadLeft text-center">
+                                            <button ng-if="obr.ShowOBRCancelAll" class="btn btn-warning DefaultButtonWidth" id="HCA-Remove_{{obr.NodeType}}_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}" onclick="RemoveObrHC(this);">
+                                                <i class="glyphicon glyphicon-remove"></i>&nbsp;Cancel
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-6 OBRHeaderColMarginTop">
+                                            <text class="OBRHeaderText BoldText"> OBR_ID : </text>
+                                            <text class="OBRHeaderText"> {{ obr.OBR_ID }}</text>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="OBR_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}" class="panel-body collapse in PanelOBRTopBorder">
+
+                                <div class="row" ng-if="obr.TestRequestIdentifier">
+                                    <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Filler Order Number : </text>
+                                    <label class="NormalText">{{ obr.TestRequestIdentifier }}</label>
+                                </div>
+
+                                <div class="row" ng-if="obr.OrderedTest.DataField">
+                                    <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Request : </text>
+                                </div>
+
+                                <div class="row DefaultPadLeftRight" ng-if="obr.OrderedTest.DataField">
+                                    <textarea rows="{{ obr.OrderedTest.DataFieldLength }}" readonly class="OBR">{{ obr.OrderedTest.DataField }}</textarea>
+                                </div>
+
+                                <div class="row" ng-if="obr.SpecimenSourceSite.DataField">
+                                    <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Specimen Source : </text>
+                                </div>
+
+                                <div class="row DefaultPadLeftRight" ng-if="obr.SpecimenSourceSite.DataField">
+                                    <textarea rows="{{ obr.SpecimenSourceSite.DataFieldLength }}" readonly class="OBR NormalBlackText">{{ obr.SpecimenSourceSite.DataField }}</textarea>
+                                </div>
+
+
+                                <div class="row" ng-if="obr.ParentResult.DataField">
+                                    <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Parent Result : </text>
+                                </div>
+
+                                <div class="row DefaultPadLeftRight" ng-if="obr.ParentResult.DataField">
+                                    <textarea rows="{{ obr.ParentResult.DataFieldLength }}" readonly class="OBR">{{ obr.ParentResult.DataField }}</textarea>
+                                </div>
+
+                                <div class="row" ng-if="obr.ReasonsForStudy.DataField">
+                                    <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Reasons for Study : </text>
+                                </div>
+
+                                <div class="row DefaultPadLeftRight" ng-if="obr.ReasonsForStudy.DataField">
+                                    <textarea rows="{{ obr.ReasonsForStudy.DataFieldLength }}" readonly class="OBR">{{ obr.ReasonsForStudy.DataField }}</textarea>
+                                </div>
+
+                                <div class="row" ng-if="obr.RelevantClinicInfo.DataField">
+                                    <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> Relevant Clinical Info : </text>
+                                </div>
+
+                                <div class="row DefaultPadLeftRight" ng-if="obr.RelevantClinicInfo.DataField">
+                                    <textarea rows="{{ obr.RelevantClinicInfo.DataFieldLength }}" readonly class="OBR">{{ obr.RelevantClinicInfo.DataField }}</textarea>
+                                </div>
+
+                                <div class="row" ng-if="obr.Notes.DataField">
+                                    <text class="OBRHeaderText BoldText BlackText DefaultPadLeftRight"> OBR Notes : </text>
+                                </div>
+
+                                <div class="row DefaultPadLeftRight" ng-if="obr.Notes.DataField">
+                                    <textarea rows="{{ obr.Notes.DataFieldLength }}" readonly class="OBR">{{ obr.Notes.DataField }}</textarea>
+                                </div>
+
+                                <br />
+
+                                <div class="panel PanelOBXBorder" ng-repeat="obx in obr.ObxList">
+                                    <div id="Scroll_OBX_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}" class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-sm-2 DefaultPadLeftRight">
+                                                <text class="OBXHeaderText BoldText"> OBX {{ obx.SequenceID }} of {{obr.ObxList.length}} &nbsp; &nbsp;</text>
+                                                <a class="OBXHeaderText BoldText ObrPanel GlyphIconSize" data-toggle="collapse" href="#OBX_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}">
+                                                    <span class="if-collapsed"><i class="glyphicon glyphicon-triangle-bottom"></i></span>
+                                                    <span class="if-not-collapsed"><i class="glyphicon glyphicon-triangle-top"></i></span>
+                                                </a>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <input id="HCA-Search_{{obx.NodeType}}_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}" ElementType="3" type="search" class="HCSearchBox SearchBoxOBX" placeholder="Assign for OBX.">
+
+                                                <!-- <i class="glyphicon glyphicon-search BoldText BlackText"></i> SearchBoxSize SearchBoxOBX -->
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <text ng-if="obx.ShowCancel" class="BoldText BlackText">Health Condition : </text>
+                                                <text class=""> {{ obx.HCAssignment.ChildName }} </text>
+
+                                                <span ng-if="obx.ShowCancel">
+
+                                                    <i class="glyphicon glyphicon-remove SearchIcon" id="HCA-Remove_{{obx.NodeType}}_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}" onclick="RemoveHCAssignment(this);"></i>
+
+                                                </span>
+
+                                            </div>
+
+                                            <div class="col-sm-3 OBRHeaderColMarginTop">
+
+                                                <div class="col-sm-9 col-sm-offset-3">
+
+                                                    <text class="OBXHeaderText BoldText"> OBX_ID : </text>
+                                                    <text class="OBXHeaderText">{{ obx.OBX_ID }}</text>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="OBX_{{ vm.data.MSH_ID }}_{{ obr.OBR_ID }}_{{obx.OBX_ID}}" class="panel-body collapse in PanelOBXTopBorder">
+
+                                        <div class="row" ng-if="obx.ResultTest.DataField">
+                                            <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result Test : </text>
+                                        </div>
+
+                                        <div class="row DefaultPadLeftRight" ng-if="obx.ResultTest.DataField">
+                                            <textarea rows="{{ obx.ResultTest.DataFieldLength }}" readonly class="OBX">{{ obx.ResultTest.DataField }}</textarea>
+                                        </div>
+
+                                        <div class="row" ng-if="obx.Result.DataField">
+                                            <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result : </text>
+                                        </div>
+
+                                        <div class="row DefaultPadLeftRight" ng-if="obx.Result.DataField">
+                                            <textarea rows="{{ obx.Result.DataFieldLength }}" readonly class="OBX">{{ obx.Result.DataField }}</textarea>
+                                        </div>
+
+                                        <div class="row" ng-if="obx.ResultUnits.DataField">
+                                            <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result Units : </text>
+                                        </div>
+
+                                        <div class="row DefaultPadLeftRight" ng-if="obx.ResultUnits.DataField">
+                                            <textarea rows="{{ obx.ResultUnits.DataFieldLength }}" readonly class="OBX">{{ obx.ResultUnits.DataField }}</textarea>
+                                        </div>
+
+                                        <div class="row" ng-if="obx.TestMethods.DataField">
+                                            <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> Result Method : </text>
+                                        </div>
+
+                                        <div class="row DefaultPadLeftRight" ng-if="obx.TestMethods.DataField">
+                                            <textarea rows="{{ obx.TestMethods.DataFieldLength }}" readonly class="OBX">{{ obx.TestMethods.DataField }}</textarea>
+                                        </div>
+
+                                        <div class="row" ng-if="obx.TestResultNotes.DataField">
+                                            <text class="OBXHeaderText BoldText BlackText DefaultPadLeftRight"> OBX Notes : </text>
+                                        </div>
+
+                                        <div class="row DefaultPadLeftRight" ng-if="obx.TestResultNotes.DataField">
+                                            <textarea rows="{{ obx.TestResultNotes.DataFieldLength }}" readonly class="OBX">{{ obx.TestResultNotes.DataField }}</textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Required Javascript -->
+
+@Scripts.Render("~/HCAssignmentDependencies")
+
+<script src="~/ScriptsFontsCSS/js/HCAssignment-angular.js"></script>
+<script src="~/ScriptsFontsCSS/js/HCAssignment.js"></script>

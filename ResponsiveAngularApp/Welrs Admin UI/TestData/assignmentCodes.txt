@@ -1,0 +1,97 @@
+﻿Amebiasis
+Anthrax
+Arboviral
+Babesiosis
+Birth defects
+Blood lead
+Botulism
+Brucellosis
+Campy
+Cancer
+CD4+
+Chancroid
+CHL/GC
+Chlamydia
+Cholera
+Coccidioidomycosis
+CRE
+Cryptococcosis
+Cryptosporidiosis
+Cyclosporiasis
+Diphtheria
+DOH Bad Data HC
+E Coli, NOS
+Ebola-Marburg
+Ehrlichiosis
+Enterohem E Coli
+Giardiasis
+Gonorrhea
+Granuloma inguinale
+H Flu
+Hantavirus
+Hep A
+Hep B
+Hep C
+Hep D
+Hep E
+Hepatitis
+Herpes simplex
+Histoplasmosis
+HIV
+HUS
+Inf A 2009 H1N1
+Influenza
+Influenza A
+Influenza B
+Lassa fever
+Legionellosis
+Leptospirosis
+LGV
+Listeriosis
+Lyme disease
+Malaria
+Measles
+Mening
+MRSA
+Mumps
+NON-REPORTABLE
+Other CD report
+Other reported STD
+Pertussis
+Pesticide
+Plague
+Polio
+Psittacosis
+PSP
+Q fever
+Rabies
+Rabies PEP
+Rare dis PH signif
+Relapsing fever
+RMSF
+Rubella
+Salmonellosis
+Shigellosis
+Smallpox
+STD Negative
+Strep A invasive
+Strep TSS
+Suspect BT
+Suspect EEC
+Suspect foodborne
+Suspect STD
+Suspect waterborne
+Syphilis
+TB
+Tetanus
+Trichinosis
+Tularemia
+Typhoid
+Typhus
+Unexpl critical ill/dea
+Vibriosis
+Viral encephalitis
+VRSA
+West Nile
+Yellow fever
+Yersiniosis

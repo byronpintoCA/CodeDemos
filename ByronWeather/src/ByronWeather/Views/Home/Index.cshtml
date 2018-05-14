@@ -1,0 +1,226 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script src="Scripts/three.min.js"> </script>
+<script src="Scripts/BallAnimate.js"></script>
+<script src="~/scripts/Index_AngularModule.js"></script>
+
+<div ng-app="WeatherLanding" ng-controller="WeatherLocationController as vm">
+
+    <div class="row">
+        <div id="DrawingArea" class="col-sm-12"></div>
+    </div>
+
+    <div class="row">
+
+        <div id="WeatherLocationDiv" class="col-sm-12">
+
+            <div class="panel-group">
+
+                <!-- Animation Panel -->
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <a data-toggle="collapse" href="#collapse1">Animation</a>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body" style="background-color:aliceblue;">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button style="width:200px;margin-top: 2px" class="btn btn-primary" ng-click="vm.StartAnimation();">Begin Animation</button>
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <button style="width:200px;margin-top: 2px" class="btn btn-success" ng-click="vm.TerminateAnimation();">End Animation</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Geo Location Panel. -->
+
+                <div class="panel panel-primary">
+
+                    <div class="panel-heading">
+
+
+                        <a data-toggle="collapse" href="#divGeoLocation">Geo Location Data</a>
+                        @{ Html.RenderPartial("~/Views/Common/CitySearch.cshtml");  }
+
+
+                        <!-- Begin Section to save Locations -->
+
+                        @*<a>asdfasd </a>
+
+                        <ul class="nav nav-pills">
+                            <li style="margin-top: 2px">
+
+                                <table>
+                                    <tr>
+                                        <td >
+                                            <button class="btn btn-primary" type="button">Olympia , WA</button>
+                                            <span style="color:red" class="glyphicon glyphicon-remove" onclick="alert('asds')"></span>
+                                            
+                                            
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </li>
+
+
+                        </ul>*@
+
+                        <!-- End Section to save Locations -->
+
+
+                        <script>
+                            $(document).ready(function () {
+                                var scope = angular.element(document.getElementById("WeatherLocationDiv")).scope();
+                                citySearchSelectedCallback = scope.vm.locationSearchCallback;
+                            });
+                        </script>
+                    </div>
+
+
+                    <div id="divGeoLocation" class="collapse in">
+                        <div class="panel-body" style="background-color:aliceblue;;">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>Latitude:</label>&nbsp;<text ng-bind="vm.latitude"></text>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Longitude:</label>&nbsp;<text ng-bind="vm.longitude"></text>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Elevation:</label>&nbsp;<text ng-bind="vm.elevation"></text>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>City:</label>&nbsp;<text ng-bind="vm.city"></text>
+                                </div>
+                                <div class="col-sm-8">
+                                    <label>County:</label>&nbsp;<text ng-bind="vm.county"></text>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>State:</label>&nbsp;<text ng-bind="vm.state"></text>
+                                </div>
+                                <div class="col-sm-8">
+                                    <label>Country:</label>&nbsp;<text ng-bind="vm.country"></text>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <!-- Weather Panel -->
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <a data-toggle="collapse" href="#divWeather">Weather :</a> {{vm.status}}
+                    </div>
+                    <div id="divWeather" class="collapse in">
+                        <div class="panel-body" style="background-color:aliceblue;">
+
+                            @*Larger Resolution UI*@
+                            <div class="table-responsive visible-lg visible-md hidden-sm hidden-xs hidden-xss">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td style="border-right:1px solid skyblue" width="10" align="center" scope="col" ng-repeat="period in vm.Forecast">
+                                                <img ng-src="{{vm.iconLocation}}{{period.image}}" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-right:1px solid skyblue" width="10" align="center" scope="col" ng-repeat="period in vm.Forecast">
+
+                                                <label>{{period.valid}}</label>
+
+                                            </td>
+                                        </tr>
+                                        <tr class="active">
+                                            <td style="border-right:1px solid skyblue" width="10" align="center" scope="col" ng-repeat="period in vm.Forecast">
+
+
+                                                <text ng-bind="period.temp['#text']"></text>
+                                                <text ng-bind="period.temp['\@@format']"></text>
+                                                (<text ng-bind="period.temp['\@@hilo']"></text>)
+
+                                            </td>
+                                        </tr>
+
+                                        <tr class="info">
+                                            <td style="border-right:1px solid skyblue" width="10" align="center" scope="col" ng-repeat="period in vm.Forecast">
+
+                                                <text ng-bind="period.weather"></text>
+                                            </td>
+                                        </tr>
+
+                                    </thead>
+                                </table>
+                            </div>
+
+                            @*Smaller Resolution UI*@
+                            <div class="table-responsive hidden-lg hidden-md visible-sm visible-xs visible-xss">
+                                <table class="table">
+                                    <thead>
+                                        <tr ng-repeat="period in vm.Forecast">
+                                            <td style="border-right:1px solid skyblue" align="center" scope="col">
+                                                <img ng-src="{{vm.iconLocation}}{{period.image}}" />
+
+                                            </td>
+                                            <td style="border-right:1px solid skyblue" align="center" scope="col">
+
+                                                <label>{{period.valid}}</label>
+                                                <br />
+                                                <text ng-bind="period.temp['#text']"></text>
+                                                <text ng-bind="period.temp['\@@format']"></text>
+                                                (<text ng-bind="period.temp['\@@hilo']"></text>)
+                                                <br />
+                                                <text ng-bind="period.weather"></text>
+
+                                            </td>
+
+                                        </tr>
+
+
+                                    </thead>
+                                </table>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+

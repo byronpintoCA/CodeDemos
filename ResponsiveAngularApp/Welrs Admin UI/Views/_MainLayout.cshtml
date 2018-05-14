@@ -1,0 +1,45 @@
+﻿@using System.Web.Optimization
+@{
+    var username = HttpContext.Current.User.Identity.Name.ToString();
+}
+
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- Required Stylesheets -->
+    <link href="~/scriptsfontscss/css/bootstrap.css" rel="stylesheet">
+    <link href="~/scriptsfontscss/css/site.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="MainContainer" class="DaMainContainer">
+        <nav class="navbar navbar-default">
+            <div class="">
+                <div class="navbar-header">
+                    <text class="navbar-brand">WELRS Admin Utility</text>
+                </div>
+
+                <ul class="nav navbar-nav">
+                    <li class="@(ViewBag.MainPageId == 1 ? "active":"")"><a href="@Url.Action("Index","Dashboard")">Dashboard</a></li>
+                    <li class="@(ViewBag.MainPageId == 2 ? "active":"")">
+                        <a href="@Url.Action("Index", "Queue")">Queue Management</a>
+                    </li>
+                    <li class="@(ViewBag.MainPageId == 3 ? "active":"")"><a id="MainHCAUrl" href="@Url.Action("Index","HCAssignment")">Health Condition Assignment</a></li>
+                </ul>
+
+                @if (ViewBag.ShowControlSection == true)
+                {
+                    <button class="btn btn-info btn-large ControlRegion " data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-shopping-cart"></i><text id="ShoppingCart"></text></button>
+                }
+
+                <span class="UserNameMarginTop">&nbsp;&nbsp; @username</span>
+
+            </div>
+        </nav>
+        <div id="Content" class="DaContentContainer">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

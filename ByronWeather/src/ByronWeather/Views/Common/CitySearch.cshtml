@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<link href="~/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+<script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
+<input id="citySearch" title="Search for a City"  placeholder="City Hints. Type 3 chars" size="30" style="margin-top:4px;color:black">
+<span class="glyphicon glyphicon-search"></span>
+
+@*<div>
+        <label>Search for a city:</label>&nbsp;<input id="citySearch" title="Search for a City" size="30">
+    </div>*@
+
+<script>
+    var citySearchSelectedCallback = null;
+    $('#citySearch').val("");
+    $(document).ready(function () {
+        $('#citySearch').autocomplete({
+            source: function (request, response) {
+                //var autocompleteUrl = '/Home/Cities' + '?searchCity=' + request.term +'&searchCountry=US';
+                var server = 'https://citylookupapi.azurewebsites.net/lookup/cities';
+                var autocompleteUrl = server + '?searchCity=' + request.term + '&searchCountry=US';
+
+                $.ajax({
+                    url: autocompleteUrl,
+                    type: 'GET',
+                    crossDomain: true,
+                    cache: false,
+                    dataType: 'json',
+                    success: function (json) {
+                        response($.map(json, function (data, id) {
+                            return {
+                                label: data.City + ',' + data.Region,
+                                value: data.City,
+                                data: {
+                                    "country": data.Country,
+                                    "city": data.City,
+                                    "region": data.Region,
+                                    "latitude": data.Latitude,
+                                    "longitude": data.Longitude
+
+                                }
+                            };
+                        }));
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        console.log('some error occured', textStatus, errorThrown);
+                    }
+                });
+            },
+            minLength: 3,
+            select: function (event, ui) {
+                //alert(ui.item.value);
+                $('#citySearch').val(ui.item.data.city + "," + ui.item.data.region);
+
+                if (citySearchSelectedCallback !== null) {
+                    citySearchSelectedCallback(ui.item.data);
+                }
+
+                return false;
+            }
+        });
+    });
+</script>

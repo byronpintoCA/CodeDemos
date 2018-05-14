@@ -1,0 +1,201 @@
+﻿@*<script src="~/Scripts/jquery-2.1.4.min.js"></script>*@
+<script src="~/Scripts/gijgo.min.js" type="text/javascript"></script>
+<link href="~/Content/gijgo.css" rel="stylesheet" type="text/css" />
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/angular-1.5.8.js"></script>
+<script src="~/Scripts/vehicleAngular.js"></script>
+
+<div id="AngularVMContainer" ng-app="Vehicle" ng-controller="VehicleController as vm">
+
+    <div class="panel-primary panel-default ">
+        <div class="panel-heading">
+
+            <div class="row">
+                
+                        <button style="margin-left :5px;" type="button" class="btn btn-success" ng-click="vm.GetList();">Refresh</button>
+                   
+                        <select id="versionSelector" style="margin-top:15px; margin-left:5px;" onchange="selectionChanged()">
+                            <option value="v1">Version One</option>
+                            <option value="v2">Version Two</option>
+                        </select>
+                   
+            </div>
+        </div>
+    </div>
+
+    <div id="ReadSection">
+        <div class="row">
+            <div class="col-sm-6">
+                <div>
+                    <table id="grid" style="margin:20px"></table>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="container">
+                    <div class="panel-primary panel-default" style="margin-top:20px;">
+                        <div class="panel-heading"><label style="margin-top:5px;">Add Update Delete Testing</label></div>
+                        <div class="panel-body">
+
+                            <div id="UpdateAndDeleteSection">
+                                
+                                <form id="validateForm">
+                                    <p></p>
+                                    <div class="row">
+                                        <div class="col-sm-3"><label style="margin-top:5px;">Id:</label></div>
+                                        <div class="col-sm-8">
+                                            <input id="labelInsUpdDeleteId" name="labelInsUpdDeleteId" class="form-control" style="margin-top:5px;" placeholder="Search: Enter a number | Adding : Ignore"
+                                                   data-rule-required="true" data-rule-number="true" ng-model="vm.Id">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="labelInsUpdDeleteId" style="margin-top:5px;"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-3"><label for="lblInsUpdDeleteManufacturer" style="margin-top:5px;">Manufacturer:</label></div>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" style="margin-top:5px;" id="inputInsUpdDeleteManufacturer" name="inputInsUpdDeleteManufacturer"
+                                                   data-rule-required="true" ng-model="vm.Manufacturer">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="inputInsUpdDeleteManufacturer" style="margin-top:5px;"></span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3"><label for="lblInsUpdDeleteModel" style="margin-top:5px;">Model:</label></div>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" style="margin-top:5px;" id="inputInsUpdDeleteModel" name="inputInsUpdDeleteModel"
+                                                   data-rule-required="true" ng-model="vm.Model">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="inputInsUpdDeleteModel" style="margin-top:5px;"></span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-3"><label for="lblInsUpdDeleteYear" style="margin-top:5px;">Year:</label></div>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" style="margin-top:5px;" id="inputInsUpdDeleteYear" name="inputInsUpdDeleteYear"
+                                                   data-rule-required="true" data-rule-number="true" data-rule-min="1900" data-rule-max="2050" ng-model="vm.Year">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span class="field-validation-valid" data-valmsg-replace="true" data-valmsg-for="inputInsUpdDeleteYear" style="margin-top:5px;"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label id="errorMessage" style="margin-top:5px;margin-left: 15px; color:red"
+                                               ng-bind="vm.Info"></label>
+                                        <label id="errorMessage" style="margin-top:5px;margin-left: 15px; color:red"
+                                               ng-bind="vm.Error"></label>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <br />
+                            <br />
+
+                        </div>
+                    </div>
+                    <div class="panel-success panel-footer">
+                        <div class="row">
+                            <div class="col-sm-1" align="center"></div>
+                            <div class="col-sm-2" align="center"><button type="button" class="btn btn-primary" style="width:100px;" ng-click="vm.Get();">Get</button></div>
+                            <div class="col-sm-2" align="center"><button type="button" class="btn btn-success" style="width:100px;" ng-click="vm.Add();">Add</button></div>
+                            <div class="col-sm-2" align="center"><button type="button" class="btn btn-warning" style="width:100px" ng-click="vm.Update();">Update</button></div>
+                            <div class="col-sm-2" align="center"><button type="button" class="btn btn-danger" style="width:100px" ng-click="vm.Delete();">Delete</button></div>
+                            <div class="col-sm-2" align="center"><button type="button" class="btn btn-info" style="width:100px" ng-click="vm.Clear();">Clear</button></div>
+                            <div class="col-sm-1" align="center"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    var grid = {};
+    var VmScope;
+
+    var validator = $('#validateForm').validate(
+       {
+           onfocusout: function (element) {
+               $(element).valid();
+           }
+       }
+   );
+
+    var ListDataCallback = function (data) {
+        //grid.Data = data;
+        grid.render(data);
+        
+        //grid.reload(data);
+    }
+
+    $(document).ready(function () {
+
+        VmScope = angular.element(document.getElementById("AngularVMContainer")).scope();
+        VmScope.vm.ListDataRecievedCallback = ListDataCallback;
+        VmScope.vm.SetVersion($('#versionSelector').val());
+        VmScope.vm.RefreshUI = refreshUI;
+
+        grid = $('#grid').grid({
+            notFoundText: 'Retrieving Data ..',
+            columns: [
+                { field: 'Id', width: 50, sortable: true, headerCssClass: 'gijgoHeaderCell' },
+                { field: 'Manufacturer', width: 100, sortable: true, headerCssClass: 'gijgoHeaderCell' },
+                { field: 'Model', width: 100, sortable: true, headerCssClass: 'gijgoHeaderCell' },
+                { field: 'Year', width: 50, sortable: true, headerCssClass: 'gijgoHeaderCell' },
+            ],
+
+            //pager: { limit: 20 },
+            //total: 200,
+        });
+
+        grid.on('rowSelect', function (e, $row, id, record) {
+            gridRowSelected(record);
+        });
+
+        grid.on('pageChanging', function (e, newPage) {
+            gridPageChanged(e, newPage);
+            
+        });
+
+        VmScope.vm.GetList();
+    });
+
+    function selectionChanged( )
+    {
+        var value = $('#versionSelector').val();
+        VmScope.vm.SetVersion(value);
+        //alert(value);
+    }
+
+    function gridRowSelected(record) {
+        VmScope.vm.SelectRow(record);
+        VmScope.$apply();
+        validator.resetForm();
+    }
+
+    function gridPageChanged(e, newPage) {
+        VmScope.vm.GetPage(newPage,20);
+        //alert('The new page is ' + newPage + '.');
+    }
+
+
+    function refreshUI() {
+        validator.resetForm();
+    }
+
+</script>
+

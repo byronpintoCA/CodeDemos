@@ -1,0 +1,537 @@
+﻿
+#loadAnimation {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s;
+}
+
+@-webkit-keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1;
+    }
+}
+
+.navbar-default {
+    background-color: DarkSlateGrey;
+    background-image: none;
+    color: blue;
+}
+
+    .navbar-default .navbar-brand {
+        color: #ffffff;
+    }
+
+    .navbar-default .navbar-nav > li > a {
+        color: #ffffff;
+    }
+
+        .navbar-default .navbar-nav > li > a:hover,
+        .navbar-default .navbar-nav > li > a:focus {
+            color: seagreen;
+        }
+
+    .navbar-default .navbar-nav > .active {
+        color: blue;
+    }
+
+    .navbar-default .navbar-nav > .open > a,
+    .navbar-default .navbar-nav > .open > a:hover,
+    .navbar-default .navbar-nav > .open > a:focus {
+        color: seagreen;
+        background-color: cadetblue;
+    }
+
+    .navbar-default .navbar-nav > .dropdown > a .caret {
+        border-top-color: #ffffff;
+        border-bottom-color: #ffffff;
+    }
+
+    .navbar-default .navbar-nav > .dropdown > a:hover .caret,
+    .navbar-default .navbar-nav > .dropdown > a:focus .caret {
+        border-top-color: seagreen;
+        border-bottom-color: seagreen;
+    }
+
+    .navbar-default .navbar-nav > .open > a .caret,
+    .navbar-default .navbar-nav > .open > a:hover .caret,
+    .navbar-default .navbar-nav > .open > a:focus .caret {
+        border-top-color: seagreen;
+        border-bottom-color: seagreen;
+    }
+
+    .navbar-default .navbar-toggle {
+        border-color: seagreen;
+    }
+
+        .navbar-default .navbar-toggle:hover,
+        .navbar-default .navbar-toggle:focus {
+            background-color: cadetblue;
+        }
+
+        .navbar-default .navbar-toggle .icon-bar {
+            background-color: #ffffff;
+        }
+
+
+    .navbar-default .navbar-nav > .active {
+        color: #000;
+        background: cadetblue;
+    }
+
+        .navbar-default .navbar-nav > .active > a,
+        .navbar-default .navbar-nav > .active > a:hover,
+        .navbar-default .navbar-nav > .active > a:focus {
+            color: #000;
+            background: cadetblue;
+        }
+
+.treefitScreen {
+    padding: 0;
+    overflow: scroll;
+    /*overflow-x: hidden;*/
+    height: 93.0%;
+    /*-webkit-overflow-scrolling: touch;*/
+}
+
+.contentfitScreen {
+    padding: 0;
+    overflow: no-display;
+    overflow-x: hidden;
+    /*overflow-x: hidden;*/
+    height: 75.0%;
+    /*-webkit-overflow-scrolling: touch;*/
+}
+
+
+div.DaMainContainer {
+    /*border: 1px solid red;*/
+    margin: 1px 2px 2px 2px;
+}
+
+div.DaContentContainer {
+    /*border: 1px solid red;*/
+    margin: -15px 2px 2px 2px;
+}
+
+.btn-fixedSize {
+    width: 100px;
+}
+
+.DefaultPadLeftRight {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.DefaultMarginLeftRight {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.NotesMarginLeftRight {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.MSHControlMarginRight {
+    margin-right: 0px;
+}
+
+.MSHMarginLeftRight {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.DefaultPadBottom {
+    padding-bottom: 10px;
+}
+
+.ZeroMarginTopBottom {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.ControlMarginTop {
+    padding-top: 4px;
+    margin-bottom: 0px;
+}
+
+.UserNameMarginTop {
+    margin-top: 18px;
+    color: orange;
+}
+
+.ZeroPadding {
+    padding: 0px;
+}
+
+.OBRHeaderColMarginTop {
+    margin-top: 6px;
+}
+
+.DefaultButtonWidth {
+    width: 80px;
+}
+
+.DefaultPaddingLeftRight {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.ZeroPadLeft {
+    padding-left: 0px;
+}
+
+.ZeroPadLeftRight {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.treeMargin {
+    margin-left: 25px;
+}
+
+.ControlRegion {
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.BlackBorderTopLeftRight {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
+
+.BlackBorderTopRight {
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
+
+.BlackBorderTopLeftRightBottom {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
+
+.RedBorderTopLeftRightBottom {
+    border-top: 1px solid red;
+    border-left: 1px solid red;
+    border-right: 1px solid red;
+    border-bottom: 1px solid red;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
+
+.BlackBorderTopRightBottom {
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
+
+
+.ContentBorder {
+    border: 1px dotted skyblue;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-left: 15px;
+    margin-top: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+
+[data-toggle="collapse"].collapsed .if-not-collapsed {
+    display: none;
+}
+
+[data-toggle="collapse"]:not(.collapsed) .if-collapsed {
+    display: none;
+}
+
+.BoldText {
+    /*   color:black; */
+    font-weight: bold;
+}
+
+.NormalBlackText {
+    color: black;
+    font-weight: normal;
+}
+
+.NormalText {
+    /*   color:black; */
+    font-weight: normal;
+}
+
+.WhiteText {
+    color: white;
+}
+
+.BlackText {
+    color: black;
+}
+
+.OBRHeaderText {
+    color: black;
+}
+
+.OBXHeaderText {
+    color: black;
+}
+
+
+.GlyphIconSize {
+    font-size: 20px;
+}
+
+.PanelContentHealthAssignment {
+    border: 1px dotted orange;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 5px;
+}
+
+.PanelContentOBR {
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 5px;
+}
+
+.DefaultTopAndBottom {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.inputBox {
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+a.PrimaryPanel:hover, a.PrimaryPanel:active, a.PrimaryPanel:focus {
+    color: darkred;
+    text-decoration: none;
+}
+
+a.PrimaryPanel:visited {
+    color: darkred;
+}
+
+a.ObrPanel:hover, a.ObrPanel:active, a.ObrPanel:focus {
+    color: purple;
+    text-decoration: none;
+}
+
+a.ObrPanel:visited {
+    color: purple;
+}
+
+a.ObxPanel:hover, a.ObxPanel:active, a.ObxPanel:focus {
+    color: brown;
+    text-decoration: none;
+}
+
+a.ObxPanel:visited {
+    color: brown;
+}
+
+textarea.HL7 {
+    resize: none;
+    width: 100%;
+    height: 350px;
+    border: 1px dotted black;
+    border-radius: 5px;
+    color: darkblue;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: scroll;
+}
+
+textarea.Notes {
+    resize: none;
+    width: 100%;
+    height: 120px;
+    border: 1px dotted black;
+    border-radius: 5px;
+    color: black;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: scroll;
+}
+
+
+textarea.OBR {
+    resize: none;
+    width: 100%;
+    /*height: 75px;*/
+    border: 1px dotted purple;
+    border-radius: 5px;
+    color: black;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: hidden;
+}
+
+textarea.OBX {
+    resize: none;
+    width: 100%;
+    /*height: 75px;*/
+    border: 1px dotted brown;
+    border-radius: 5px;
+    color: black;
+    white-space: pre;
+    word-wrap: normal;
+    overflow-x: hidden;
+}
+
+.SearchForeground {
+    color: orange;
+}
+
+.SearchIcon {
+    color: Crimson;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.HCSearchBox {
+    border-radius: 3px;
+    border: 1px solid #163a72;
+    margin-top: 5px;
+}
+
+.SearchBoxSize {
+    margin-top: -2px;
+    width: 200px;
+}
+
+.SearchBoxMSH {
+    background-color: #e5edf9;
+}
+
+.SearchBoxOBR {
+    background-color: #e4f2e3;
+}
+
+.SearchBoxOBX {
+    background-color: #f7ede3;
+}
+
+.SearchBoxMSHMarginTop {
+    margin-top: 5px;
+}
+
+.SearchBoxOBRMarginTop {
+    margin-top: 3px;
+}
+
+.SearchBoxOBXMarginTop {
+    margin-top: 3px;
+}
+
+.PanelMSHBorder {
+    border: 2px none DodgerBlue;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.PanelOBRBorder {
+    border: 2px solid DarkOliveGreen;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.PanelOBRTopBorder {
+    border-top: 2px solid DarkOliveGreen;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
+
+.PanelOBXBorder {
+    border: 1px solid #633300;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.PanelOBXTopBorder {
+    border-top: 1px solid #633300;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
+
+.dummy {
+    /* don't remove me .. Im used*/
+}

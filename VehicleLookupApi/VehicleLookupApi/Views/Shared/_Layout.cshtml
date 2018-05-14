@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @{ ViewBag.Title = "Vehicle API Help";}
+
+    @*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+
+</head>
+
+
+<body>
+
+    <div class="navbar" style="background-color:#3875d8">
+
+        @Html.ActionLink((String)ViewBag.Title, "Index", "Help", new { area = "" }, new { @class = "navbar-brand navMenuItem"})
+
+        <a href="~/v1/Vehicles" class="navbar-brand navMenuItem" >Get V1 </a>
+        <a href="~/v2/Vehicles" class="navbar-brand navMenuItem" >Get V2 </a>
+
+
+        @Html.ActionLink("Jquery Client", "JQuery", "Client", new { area = "" }, new { @class = "navbar-brand navMenuItem" })
+        @Html.ActionLink("Angular Client", "Angular", "Client", new { area = "" }, new { @class = "navbar-brand navMenuItem" })
+        @Html.ActionLink("Features", "Features", "Client", new { area = "" }, new { @class = "navbar-brand navMenuItem" })
+        @Html.ActionLink("GenerateError", "Error", "Client", new { area = "" }, new { @class = "navbar-brand navMenuItem" })
+
+        <a href="~/elmah.axd" class="navbar-brand navMenuItem" >View Error Logs </a>
+
+        @Html.ActionLink("SearchPerformance", "SearchPerformance", "Client", new { area = "" }, new { @class = "navbar-brand navMenuItem" })
+
+        <a href="http://byronweather.azurewebsites.net/" class="navbar-brand navMenuItem" >Another Angular Demo </a>
+
+    </div>
+
+    <div style="margin-left: 20px;margin-right: 20px;">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - @ViewBag.Title</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
