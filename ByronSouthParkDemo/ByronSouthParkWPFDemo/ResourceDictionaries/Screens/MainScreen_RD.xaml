@@ -1,0 +1,234 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                    
+                    xmlns:ViewModels ="clr-namespace:ByronSouthParkDemo.ViewModel"
+                    xmlns:Models ="clr-namespace:ByronSouthParkDemo.Model"
+                    xmlns:Common ="clr-namespace:ByronSouthParkDemo.Common"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    >
+
+    <DataTemplate x:Key="ListViewDataTemplate">
+        <Grid Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+                <ColumnDefinition Width="65*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="1" Width="200" Margin="0,0,10,0">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Source" Value="{Binding Image}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Image}" Value="{x:Null}">
+                                <Setter Property="Source" Value="/Resources/No-Image.png" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+
+            <WrapPanel Grid.Column="2" VerticalAlignment="Center">
+                <TextBlock Text="{Binding LastName}"  />
+                <TextBlock Text=", " />
+                <TextBlock Text="{Binding FirstName}" FontWeight="Bold" />
+            </WrapPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.ControlSection">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Style="{StaticResource GeneralButton}" Background="Green" Command="{Binding Add}">Add</Button>
+            <Button Grid.Column="1" Style="{StaticResource GeneralButton}" Background="Orange" Command="{Binding Edit}">Edit</Button>
+            <Button Grid.Column="3" Style="{StaticResource GeneralButton}" Background="Red" Command="{Binding Remove}">Remove</Button>
+        </Grid>
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.CharacterSection" DataType="Models:Character" >
+        <Border BorderBrush="Black" BorderThickness="1" Margin="5,0,5,0">
+            <Grid Margin="5" >
+                <StackPanel Orientation="Vertical" >
+
+                    <StackPanel Orientation="Horizontal" >
+                        <Label  Content="First Name" Style="{StaticResource InfoLabel}"  Width="100"/>
+                        <Label  Content=":" Style="{StaticResource InfoLabel}" />
+                        <Label  Content="{Binding FirstName}" Style="{StaticResource DataLabel}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" >
+                        <Label  Content="Last Name" Style="{StaticResource InfoLabel}"  Width="100"/>
+                        <Label  Content=":" Style="{StaticResource InfoLabel}" />
+                        <Label  Content="{Binding LastName}" Style="{StaticResource DataLabel}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" >
+                        <Label  Content="Gender" Style="{StaticResource InfoLabel}"  Width="100"/>
+                        <Label  Content=":" Style="{StaticResource InfoLabel}" />
+                        <Label  Content="{Binding Gender}" Style="{StaticResource DataLabel}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" >
+                        <Label  Content="Nickname" Style="{StaticResource InfoLabel}"  Width="100"/>
+                        <Label  Content=":" Style="{StaticResource InfoLabel}" />
+                        <Label  Content="{Binding NickName}" Style="{StaticResource DataLabel}" />
+                    </StackPanel>
+
+
+                    <Image Width="300">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="{Binding Image}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Image}" Value="{x:Null}">
+                                        <Setter Property="Source" Value="/Resources/No-Image.png" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+
+                </StackPanel>
+                <!--<Label  Content="Last Name" Style="{StaticResource InfoLabel}" Grid.Row="1" Grid.Column="0"/>
+                <Label  Content="{Binding LastName}" Style="{StaticResource DataLabel}" Grid.Row="1" Grid.Column="1"/>
+
+                <Label  Content="Gender" Style="{StaticResource InfoLabel}" Grid.Row="2" Grid.Column="0"/>
+                <Label  Content="{Binding Gender}" Style="{StaticResource DataLabel}" Grid.Row="2" Grid.Column="1"/>-->
+
+
+            </Grid>
+        </Border>
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate" DataType="ViewModels:MainScreenViewModel">
+        <Grid Background="Lavender">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="92*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Label  VerticalAlignment="Top" >You can choose a different UI Layout . Initially the view is changed automatically (just for demo purposes ) .</Label>
+                <Label Style="{StaticResource InfoLabel}" VerticalAlignment="Top">View Selection :</Label>
+                <ComboBox Width="150" Height="30" VerticalAlignment="Top" ItemsSource="{Binding ViewModeList}" SelectedItem="{Binding Path=ViewMode , Mode=TwoWay , Converter={StaticResource EnumConverter}}"   HorizontalAlignment="Right" ></ComboBox>
+            </StackPanel>
+            <ContentControl Grid.Row="1" ContentTemplateSelector="{StaticResource MainTemplateSelector}" Content="{Binding MainScreenContent}"/>
+
+        </Grid>
+    </DataTemplate>
+
+
+    <DataTemplate x:Key="ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.ViewOne" DataType="ViewModels:MainScreenViewModel">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="72*"/>
+                <RowDefinition Height="20*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">South Park Characters</Label>
+
+            <ContentControl Grid.Row="1" Grid.Column="0" ContentTemplate="{StaticResource ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.CharacterSection}" Content="{Binding SelectedCharacter}"/>
+
+            <Common:ScrollToViewListView  Grid.Row="1" Grid.Column="1" ItemsSource="{Binding CharacterList}" SelectedItem="{Binding SelectedCharacter}" ItemTemplate="{StaticResource ListViewDataTemplate}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid} ,Path=DataContext.Edit}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Common:ScrollToViewListView>
+
+            <Label Grid.Row="2" Grid.Column="0" Background="Beige" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding TimeChanged}"></Label>
+
+            <ContentControl Grid.Row="2" Grid.Column="1" ContentTemplate="{StaticResource ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.ControlSection}" Content="{Binding}"/>
+
+
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.ViewTwo" DataType="ViewModels:MainScreenViewModel">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="20*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Background="Beige"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding TimeChanged}"></Label>
+
+            <ContentControl Grid.Row="0" Grid.Column="1" ContentTemplate="{StaticResource ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.ControlSection}" Content="{Binding }"/>
+
+            <ContentControl Grid.Row="1" Grid.Column="1" ContentTemplate="{StaticResource ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.CharacterSection}" Content="{Binding SelectedCharacter}"/>
+
+            <Common:ScrollToViewListView  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding CharacterList}" SelectedItem="{Binding SelectedCharacter}" ItemTemplate="{StaticResource ListViewDataTemplate}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid} ,Path=DataContext.Edit}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Common:ScrollToViewListView>
+
+            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">South Park Characters</Label>
+
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.ViewThree" DataType="ViewModels:MainScreenViewModel">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="90*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom">South Park Characters</Label>
+
+            <ContentControl Grid.Row="1" Grid.Column="1" ContentTemplate="{StaticResource ByronSouthParkDemo.ViewModel.MainScreenViewModel.DataTemplate.CharacterSection}" Content="{Binding  SelectedCharacter}"/>
+
+            <Common:ScrollToViewListView  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding CharacterList}" SelectedItem="{Binding SelectedCharacter}"  ItemTemplate="{StaticResource ListViewDataTemplate}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid} ,Path=DataContext.Edit}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Common:ScrollToViewListView>
+
+            <Label Grid.Row="0" Grid.Column="1" Background="Beige"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding TimeChanged}" ></Label>
+
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="33*"></RowDefinition>
+                    <RowDefinition Height="33*"></RowDefinition>
+                    <RowDefinition Height="33*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Style="{StaticResource GeneralButton}" Background="Green" Command="{Binding Add}">Add</Button>
+                <Button Grid.Row="1" Style="{StaticResource GeneralButton}" Background="Orange" Command="{Binding Edit}">Edit</Button>
+                <Button Grid.Row="2" Style="{StaticResource GeneralButton}" Background="Red" Command="{Binding Remove}">Remove</Button>
+            </Grid>
+
+        </Grid>
+    </DataTemplate>
+
+
+
+</ResourceDictionary>

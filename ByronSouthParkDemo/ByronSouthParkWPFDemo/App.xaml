@@ -1,0 +1,15 @@
+﻿<Application x:Class="ByronSouthParkDemo.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Common ="clr-namespace:ByronSouthParkDemo.Common" 
+             StartupUri="View/MainWindow.xaml" Exit="Application_Exit" Startup="Application_Startup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Common:MainTemplateSelector x:Key="MainTemplateSelector"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ResourceDictionaries/CommonStyles_RD.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionaries/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
